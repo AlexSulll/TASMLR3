@@ -2,9 +2,9 @@
 .386
 .stack      100h
 .data
-    A           db      52d
-    B           db      -52d
-    C           db      52d
+    A           db      ?
+    B           db      ?
+    C           db      ?
     D           dd      ?
 .code
 Start:
@@ -44,6 +44,7 @@ positive_6ab:
     or      eax,eax
     js      negative_c1
     add     esi,eax
+    jz      vihod
     jmp     chislitel
 negative_6ab:    
     mov     esi,eax
@@ -51,14 +52,17 @@ negative_6ab:
     or      eax,eax
     js      negative_c2
     add     esi,eax
+    jz      vihod
     jmp     chislitel
 negative_c1:
     neg     eax
     sub     esi,eax
+    jz      vihod
     jmp     chislitel
 negative_c2:
     neg     eax
     sub     esi,eax
+    jz      vihod
 chislitel:
     movsx   eax,ch
     mov     ebp,eax
@@ -82,6 +86,7 @@ positive_c:
 division:
     idiv    esi
     mov     [D],eax
+vihod:
     ret
     schet   endp   
 Exit:
