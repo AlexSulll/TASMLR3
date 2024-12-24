@@ -2,9 +2,9 @@
 .386
 .stack      100h
 .data
-    A           db      52d
-    B           db      -52d
-    C           db      52d
+    A           db      ?
+    B           db      ?
+    C           db      ?
     D           dd      ?
 .code
 Start:
@@ -29,30 +29,29 @@ schet proc near
     mov     bh,[si]
     mov     si,[esp+6]
     mov     bl,[si]
-    movsx   eax,bh ;eax = b
-    mov     ebp,eax ;ebp = b
-    sal     ebp,2 ; ebp = 4b
-    sal     eax,1 ;eax = 2b
-    add     ebp,eax ;ebp = 6b
-    movsx   eax,bl ; eax = a
-    imul    ebp;eax = 6ab
+    movsx   eax,bh
+    mov     ebp,eax
+    sal     ebp,2
+    sal     eax,1
+    add     ebp,eax
+    movsx   eax,bl
+    imul    ebp
+    mov     ebp,eax
     movsx   eax,ch
     add     ebp,eax
     jz      Exit
     mov     esi,ebp
-    movsx   eax,ch ;eax = c
-    mov     ebp,eax ;ebp = c
-    movsx   eax,bh ; eax = b
-    mov     edi,eax ; edi = b
-    mov     edx,eax ; edx = b
+    movsx   ebp,ch
+    movsx   eax,bh
+    mov     edi,eax
+    mov     edx,eax
     sal     edi,5
     sal     edx,2
-    sub     edi,edx ; edi = 28b
-    imul    eax ; eax = b^2
-    imul    edi ;eax = 28 b^3
+    sub     edi,edx
+    imul    eax
+    imul    edi
     sub     ebp,19
-    add     edi,ebp
-    mov     eax,edi
+    add     eax,ebp
     cdq
     idiv    esi
     ret     6
