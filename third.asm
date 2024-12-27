@@ -13,8 +13,6 @@ Start:
     mov     es,ax
     
     push    offset A
-    push    offset B
-    push    offset C
     
     call    schet
     mov     [D],eax
@@ -25,10 +23,8 @@ Exit:
 schet proc near
     mov     si,[esp+2]
     mov     ch,[si]
-    mov     si,[esp+4]
-    mov     bh,[si]
-    mov     si,[esp+6]
-    mov     bl,[si]
+    mov     bh,[si+1]
+    mov     bl,[si+2]
     mov     al,bh
     imul    bl
     cwde
