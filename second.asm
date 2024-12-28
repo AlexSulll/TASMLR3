@@ -23,7 +23,7 @@ Exit:
     mov     ah,4Ch
     int     21h
 schet proc near
-	  push    bp
+	 push    bp
     mov     bp,sp
     mov     ch,[bp+4]
     mov     bh,[bp+6]
