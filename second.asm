@@ -2,9 +2,9 @@
 .386
 .stack      100h
 .data
-    A           db      52d
-    B           db      -52d
-    C           db      52
+    A           db      ?
+    B           db      ?
+    C           db      ?
     D           dd      ?
 .code
 Start:
@@ -12,9 +12,9 @@ Start:
     mov     ds,ax
     mov     es,ax
     
-    push    offset A
-    push    offset B
-    push    offset C
+    push    A
+    push    B
+    push    C
     
     call    schet
     mov     [D],eax
@@ -23,12 +23,12 @@ Exit:
     mov     ah,4Ch
     int     21h
 schet proc near
-    mov     si,[esp+2]
-    mov     ch,[si]
-    mov     si,[esp+4]
-    mov     bh,[si]
-    mov     si,[esp+6]
-    mov     bl,[si]
+	  push    bp
+    mov     bp,sp
+    mov     ch,[bp+4]
+    mov     bh,[bp+6]
+    mov     bl,[bp+8]
+
     mov     al,bh
     imul    bl
     cwde
@@ -56,6 +56,7 @@ schet proc near
     sub     eax,19
     cdq
     idiv    esi
+    pop     bp
     ret     6
     schet   endp
 end     Start
